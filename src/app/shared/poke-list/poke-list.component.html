@@ -1,1 +1,25 @@
-<p>poke-list works!</p>
+<div class="grid grid-cols-3 gap-8">
+  <ng-template ngFor let-pokemon [ngForOf]="getAllPokemons">
+    @if (pokemon.status) {
+      <a href="" class="w-full mx-auto ease-in-out transition duration-200 hover:scale-105 hover:brightness-110 hover:shadow-lg shadow-neutral-700 max-w-[300px] h-[180px] px-6 flex justify-between items-center rounded-md border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-800/40">
+        <div class="h-full pt-4 flex flex-col gap-2">
+          <h2 class="text-2xl font-normal capitalize">
+            {{ pokemon.name }}
+          </h2>
+
+          <ul class="flex flex-col gap-1">
+           @for (value of pokemon.status.types; track $index) {
+            <li class="px-4 py-1 rounded-3xl bg-neutral-800 text-sm font-medium w-min capitalize">
+              {{ value.type.name }}
+            </li>
+           }
+          </ul>
+        </div>
+
+        <div>
+          <img class="w-[100px]" [src]="pokemon.status.sprites.other.dream_world.front_default" [alt]="pokemon.name">
+        </div>
+      </a>
+    }
+  </ng-template>
+</div>
