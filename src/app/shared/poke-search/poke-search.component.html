@@ -1,4 +1,9 @@
 <form class="flex items-center justify-between w-full px-4 py-2 gap-2 rounded-md border border-neutral-800 shadow">
-  <input type="text" placeholder="Buscar pokemon..." class="bg-transparent  focus-visible:outline-none w-full placeholder:text-sm placeholder:text-neutral-500 group">
+  <input
+    #searchValue
+    (keyup)="search(searchValue.value)"
+    type="text" placeholder="Buscar pokemon..."
+    class="bg-transparent  focus-visible:outline-none w-full placeholder:text-sm placeholder:text-neutral-500 group"
+  >
   <img src="assets/icons/search.svg" alt="buscar pokemon">
 </form>

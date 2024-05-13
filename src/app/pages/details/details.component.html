@@ -1,1 +1,46 @@
-<p>details works!</p>
+<app-poke-header></app-poke-header>
+
+<main>
+  @if (isLoading) {
+    <ng-template>
+      <section class="max-w-md rounded-3xl mx-auto mt-16 flex flex-col gap-8">
+        <div class="w-full flex justify-between relative items-center px-4 -top-[1px]">
+          <div>
+            <h3 class="text-4xl font-medium capitalize">
+              {{ pokemon[0].name }}
+            </h3>
+            <h4 class="text-4xl text-neutral-600 font-bold">
+              {{ pokemon[1].names[0].name }}
+            </h4>
+          </div>
+
+          <img class="w-[180px]" [src]="pokemon[0].sprites.other.dream_world.front_default" [alt]="pokemon[0].name">
+        </div>
+        <div class="p-4 flex flex-col gap-4 h-full">
+          <div class="flex flex-col gap-4">
+            <h2 class="text-3xl font-semibold">Estatísticas</h2>
+            <div>
+              <ul>
+             @for (stats of pokemon[0].stats; track $index) {
+              <li class="flex justify-between">
+                <span>{{ stats.stat.name }}</span>
+                <span class="font-alt font-bold">{{ stats.base_stat }}</span>
+              </li>
+             }
+              </ul>
+            </div>
+          </div>
+
+          <button [routerLink]="['']" routerLinkActive="router-link-active"  class="w-full rounded-3xl p-4 bg-gradient-to-br from-red-600 to-red-500 text-sm border border-red-700 group hover:brightness-110 ease-in-out duration-300">
+            voltar para <span class="font-bold group-hover:underline underline-offset-4">pokemons</span>
+          </button>
+        </div>
+      </section>
+    </ng-template>
+  }
+  @if (apiError) {
+    <div class="mx-auto flex justify-center items-center min-h-[75vh]">
+      <img src="assets/error.png" alt="error" class="animate-pulse">
+    </div>
+  }
+</main>

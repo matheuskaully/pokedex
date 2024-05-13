@@ -1,25 +1,83 @@
+<section class="pb-8">
+  <app-poke-search (emmitSearch)="getSearch($event)"></app-poke-search>
+</section>
+
 <div class="grid grid-cols-3 gap-8">
   <ng-template ngFor let-pokemon [ngForOf]="getAllPokemons">
     @if (pokemon.status) {
-      <a href="" class="w-full mx-auto ease-in-out transition duration-200 hover:scale-105 hover:brightness-110 hover:shadow-lg shadow-neutral-700 max-w-[300px] h-[180px] px-6 flex justify-between items-center rounded-md border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-800/40">
-        <div class="h-full pt-4 flex flex-col gap-2">
-          <h2 class="text-2xl font-normal capitalize">
-            {{ pokemon.name }}
-          </h2>
+      @defer {
+        <a
+          [routerLink]="['details', pokemon.status.id]"
+          routerLinkActive="router-link-active"
+          class="w-full mx-auto ease-in-out transition duration-200 hover:scale-105 hover:brightness-110 hover:shadow-lg shadow-neutral-700 max-w-[300px] h-[180px] px-6 flex justify-between items-center rounded-md border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-800/40"
+        >
+          <div class="h-full pt-4 flex flex-col gap-2">
+            <h2 class="text-2xl font-normal capitalize">
+              {{ pokemon.name }}
+            </h2>
 
-          <ul class="flex flex-col gap-1">
-           @for (value of pokemon.status.types; track $index) {
-            <li class="px-4 py-1 rounded-3xl bg-neutral-800 text-sm font-medium w-min capitalize">
-              {{ value.type.name }}
-            </li>
-           }
-          </ul>
-        </div>
+            <ul class="flex flex-col gap-1">
+            @for (value of pokemon.status.types; track $index) {
+              <li class="px-4 py-1 rounded-3xl bg-neutral-800 text-sm font-medium w-min capitalize">
+                {{ value.type.name }}
+              </li>
+            }
+            </ul>
+          </div>
 
-        <div>
-          <img class="w-[100px]" [src]="pokemon.status.sprites.other.dream_world.front_default" [alt]="pokemon.name">
+          <div>
+            <img class="w-[100px]" [src]="pokemon.status.sprites.other.dream_world.front_default" [alt]="pokemon.name">
+          </div>
+        </a>
+      } @placeholder(minimum 2000ms) {
+        <div class="flex flex-col">
+          <ngx-skeleton-loader
+            animation="pulse"
+            appearance="line"
+            [theme]="{
+              'border-radius': '180px',
+              height: '50px',
+              'background-color': '#262626',
+            }"
+          />
+
+          <div class="flex justify-between">
+            <div class="flex flex-col">
+              <ngx-skeleton-loader
+                animation="pulse"
+                appearance="line"
+                [theme]="{
+                  'border-radius': '180px',
+                  height: '50px',
+                  width: '100px' ,
+                  'background-color': '#262626',
+                }"
+              />
+              <ngx-skeleton-loader
+                animation="pulse"
+                appearance="line"
+                [theme]="{
+                  'border-radius': '180px',
+                  height: '50px',
+                  width: '100px' ,
+                  'background-color': '#262626',
+                }"
+              />
+            </div>
+
+            <ngx-skeleton-loader
+              animation="pulse"
+              appearance="custom-content"
+              [theme]="{
+                'border-radius': '180px',
+                height: '100px',
+                width: '100px' ,
+                'background-color': '#262626',
+              }"
+            />
+          </div>
         </div>
-      </a>
+      }
     }
   </ng-template>
 </div>
